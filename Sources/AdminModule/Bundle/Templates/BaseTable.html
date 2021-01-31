@@ -1,16 +1,21 @@
-#define(toolbarCenter):
-    #(table.title ?? "List")
-#enddefine
-
-#define(toolbarLeft):
-    #if((table.create ?? true) && UserHasPermission(table.key + ".create")):
-    <a href="#($req.url.path)create/">#svg("plus-circle")</a>
-    #endif
+#define(title):
+#(table.title)
 #enddefine
 
 #define(body):
+
+<header class="margin-bottom">
+    <h1 class="margin-top-zero">#(table.title ?? "List")</h1>
+    <p class="margin-top-zero">
+        #if((table.create ?? true) && UserHasPermission(table.key + ".create")):
+        <a href="#($req.url.path)create/">Create new</a>
+        #endif
+    </p>
+</header>
+
+<section>
     #if(table.search ?? true):
-    <form id="search-form" class="m" action="#($req.url.path)" method="get">
+    <form id="search-form" action="#($req.url.path)" method="get" class="margin-bottom">
         #if(Request(query: "sort") != nil):
         <input type="hidden" id="sort" name="sort" value="#Request(query: "sort")">
         #endif
@@ -20,13 +25,14 @@
         <input type="text" id="search" name="search" placeholder="Search..." value="#Request(query: "search")">
     </form>
     #endif
-
+    
     #if(list.items.isEmpty()):
         #inline("Admin/Empty")
     #else:
-    <table class="m">
+    
+    <table>
         <thead>
-            <tr>
+            <tr class="background-1 text-align-left">
                 #th()
             </tr>
         </thead>
@@ -35,10 +41,14 @@
         </tbody>
     </table>
 
-    <div id="pagination" class="m t:center">
+    <div id="pagination" class="margin-top margin-bottom-xl text-align-center">
     #inline("Admin/Pagination")
     </div>
     #endif
+
+</section>
+
 #enddefine
+
 
 #inline("Admin/Index")

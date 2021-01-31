@@ -1,4 +1,4 @@
-<section class="m:b">
+<section class="margin-bottom">
     <label for="#(field.id)">#(field.label ?? field.id.capitalized())</label>
     <select name="#(field.id)[]" multiple>
         #for(item in field.data.options):
@@ -6,6 +6,6 @@
         #endfor
     </select>
     #if(field.data.error != nil):
-    <span class="error">#(field.data.error)</span>
+    <span class="red-color">#(field.data.error)</span>
     #endif
 </section>
