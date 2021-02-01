@@ -24,7 +24,16 @@
     </header>
     
     <section>
-        #evaluate(details ?? "")
+        #if(!(detail.fields ?? []).isEmpty()):
+        <dl>
+        #for(field in detail.fields):
+            <dt>#(field.label)</dt>
+            <dd>#(field.value)</dd>
+        #endfor
+        </dl>
+        #else:
+            #evaluate(details ?? "")
+        #endif
 
         <div class="margin-top-xl">
             #if((detail.delete ?? true) && UserHasPermission(detail.key + ".delete")):
