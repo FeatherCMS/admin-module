@@ -1,4 +1,5 @@
-#var(actions = [])
+#var(actions = [] + table.actions ?? [])
+
 #if((table.edit ?? true) && UserHasPermission(table.key + ".update")):
     #(actions.append(["link": "/update/", "label": "Edit", "icon": "edit-2", "width": "80px"]))
 #endif

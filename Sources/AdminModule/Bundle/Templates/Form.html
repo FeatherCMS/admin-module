@@ -14,12 +14,12 @@
     <h1 class="margin-top-zero">#if(form.modelId != nil):Edit#else:Create#endif #(form.title.lowercased())</h1>
     <p class="margin-top-zero">
 
-        #var(finalActions = [])
+        #var(navItems = [])
         #if((form.modelId != nil) && (form.view ?? true) && UserHasPermission(form.key + ".get")):
-            #(finalActions.append(["link": $req.url.path.trimLast(), "name": "View"]))
+            #(navItems.append(["link": $req.url.path.trimLast(), "name": "View"]))
         #endif
-        #for(action in finalActions + form.actions ?? []):
-            #if(!isFirst): &middot; #endif<a href="#(action.link)"#if(action.targetBlank ?? false): target="_blank"#endif>#(action.name)</a>
+        #for(navItem in navItems + form.nav ?? []):
+            #if(!isFirst): &middot; #endif<a href="#(navItem.link)"#if(navItem.targetBlank ?? false): target="_blank"#endif>#(navItem.label)</a>
         #endfor
     </p>
 </header>
