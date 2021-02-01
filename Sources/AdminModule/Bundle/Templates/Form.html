@@ -16,7 +16,7 @@
 
         #var(navItems = [])
         #if((form.modelId != nil) && (form.view ?? true) && UserHasPermission(form.key + ".get")):
-            #(navItems.append(["link": $req.url.path.trimLast(), "name": "View"]))
+            #(navItems.append(["link": $req.url.path.trimLast(), "label": "View"]))
         #endif
         #for(navItem in navItems + form.nav ?? []):
             #if(!isFirst): &middot; #endif<a href="#(navItem.link)"#if(navItem.targetBlank ?? false): target="_blank"#endif>#(navItem.label)</a>

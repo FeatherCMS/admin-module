@@ -8,7 +8,7 @@
     <p class="margin-top-zero">
         #var(navItems = [])
         #if((table.create ?? true) && UserHasPermission(table.key + ".create")):
-            #(navItems.append(["link": $req.url.path + "create/", "name": "Create new"]))
+            #(navItems.append(["link": $req.url.path + "create/", "label": "Create new"]))
         #endif
         #for(navItem in navItems + table.nav ?? []):
             #if(!isFirst): &middot; #endif<a href="#(navItem.link)"#if(navItem.targetBlank ?? false): target="_blank"#endif>#(navItem.label)</a>

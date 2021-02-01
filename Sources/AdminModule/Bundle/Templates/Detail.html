@@ -15,7 +15,7 @@
         <p class="margin-top-zero">
             #var(navItems = [])
             #if((detail.edit ?? true) && UserHasPermission(detail.key + ".update")):
-                #(navItems.append(["link": $req.url.path + "update/", "name": "Edit"]))
+                #(navItems.append(["link": $req.url.path + "update/", "label": "Edit"]))
             #endif
             #for(navItem in navItems + detail.nav ?? []):
                 #if(!isFirst): &middot; #endif<a href="#(navItem.link)"#if(navItem.targetBlank ?? false): target="_blank"#endif>#(navItem.label)</a>
