@@ -1,10 +1,10 @@
-<section class="margin-bottom">
-    <label class="block" for="#(field.id)">#(field.label ?? field.id.capitalized())#if(field.required ?? false):<span class="red-color">*</span>#endif</label>
+<section>
+    <label class="display-block" for="#(field.id)">#(field.label ?? field.id.capitalized())#if(field.required ?? false):<span class="color-red">*</span>#endif</label>
     #for(item in field.data.options):
     <input type="checkbox" name="#(field.id)[]" value="#(item.key)" id="#(field.id)-#(item.key)" #if(field.data.values.contains(item.key)):checked#endif>
     <label for="#(field.id)-#(item.key)">#(item.label)</label><br>
     #endfor
     #if(field.data.error != nil):
-    <span class="red-color">#(field.data.error)</span>
+    <span class="color-red">#(field.data.error)</span>
     #endif
 </section>

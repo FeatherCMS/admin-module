@@ -12,26 +12,27 @@ document.onkeydown=function(evt){
 #enddefine
 
 #define(body):
-<div class="container text-align-center">
-    <div class="margin-xl">
-        <span class="h1">🗑</span>
-        <h1 class="margin-top-zero">#(delete.title ?? "Confirm deletion")</h1>
-        <p class="margin-bottom">You are about to permanently delete the `#(delete.context ?? "current")` #(delete.type ?? "object").</p>
-        
-        <form id="delete-form" class="margin-bottom-s" action="#($req.url.path)" method="POST">
-            <input type="hidden" name="formId" value="#(delete.id ?? "")">
-            <input type="hidden" name="formToken" value="#(delete.token ?? "")">
-            #if(delete.key != nil):
-            <input type="hidden" name="key" value="#(delete.key ?? "")">
-            #endif
-            <input type="hidden" name="redirect" value="#(delete.list.url ?? $req.url.path.trimLast(2))">
+<div class="margin-vertical-xl">
+    <span class="h2">🗑</span>
+    <h1 class="margin-top-zero">#(delete.title ?? "Confirm deletion")</h1>
+    <p class="margin-top-zero margin-bottom">You are about to permanently delete the `#(delete.context ?? "current")` #(delete.type ?? "object").</p>
+    
+    <form id="delete-form" action="#($req.url.path)" method="POST">
+        <input type="hidden" name="formId" value="#(delete.id ?? "")">
+        <input type="hidden" name="formToken" value="#(delete.token ?? "")">
+        #if(delete.key != nil):
+        <input type="hidden" name="key" value="#(delete.key ?? "")">
+        #endif
+        <input type="hidden" name="redirect" value="#(delete.list.url ?? $req.url.path.trimLast(2))">
 
-            <input type="submit" class="size-width-xl margin-horizontal-auto" value="#(delete.confirm ?? "Delete")" />
-        </form>
+        <input type="submit" value="#(delete.confirm ?? "Delete")" class="button background-red margin-right-s" style="display: inline;">
+        <a href="#(Request(query: "cancel") ?? delete.list.url)" class="button background-gray display-inline-block" >#(delete.cancel ?? "Cancel")</a>
+    </form>
 
-        <a href="#(Request(query: "cancel") ?? delete.list.url)">#(delete.cancel ?? "Cancel")</a>
-    </div>
+    
 </div>
+
 #enddefine
 
 #inline("Admin/Index")
+
