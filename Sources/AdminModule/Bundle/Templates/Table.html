@@ -36,12 +36,14 @@ tr {
 
 #define(tr):
     #for(item in list.items):
+        #let(label = !item[table.field.key].isEmpty() ? item[table.field.key] : (table.field.placeholder ?? ""))
+
     <tr class="margin-bottom-s shadow-s padding-s">
         <td class="margin-horizontal-xs compact-margin compact-center #if(!actions.isEmpty()): compact-separator compact-col#(actions.count())#endif">
             #if((table.view ?? true) && UserHasPermission(table.key + ".get")):
-            <a href="#($req.url.path)#(item.id)/">#(item[table.field.key])</a>
+                <a href="#($req.url.path)#(item.id)/">#(label)</a>
             #else:
-            #(item[table.field.key])
+                #(label)
             #endif
         </td>
 
