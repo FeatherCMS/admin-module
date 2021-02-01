@@ -19,7 +19,7 @@
             #(finalActions.append(["link": $req.url.path.trimLast(), "name": "View"]))
         #endif
         #for(action in finalActions + form.actions ?? []):
-            #if(!isFirst): &middot; #endif<a href="#(action.link)#if(action.targetBlank ?? false): target="_blank"#endif">#(action.name)</a>
+            #if(!isFirst): &middot; #endif<a href="#(action.link)"#if(action.targetBlank ?? false): target="_blank"#endif>#(action.name)</a>
         #endfor
     </p>
 </header>
