@@ -3,7 +3,6 @@
 #enddefine
 
 #define(body):
-
 <header class="margin-bottom">
     <h1 class="margin-top-zero">#(table.title ?? "List")</h1>
     <p class="margin-top-zero">
@@ -16,7 +15,6 @@
         #endfor
     </p>
 </header>
-
 <section>
     #if(table.search ?? true):
     <form id="search-form" action="#($req.url.path)" method="get" class="margin-bottom">
@@ -33,7 +31,6 @@
     #if(list.items.isEmpty()):
         #inline("Admin/Empty")
     #else:
-    
     <table>
         <thead>
             <tr class="background-1 text-align-left">
@@ -49,10 +46,7 @@
     #inline("Admin/Pagination")
     </div>
     #endif
-
 </section>
-
 #enddefine
-
 
 #inline("Admin/Index")
