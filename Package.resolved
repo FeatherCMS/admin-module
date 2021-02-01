@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/FeatherCMS/feather-core",
         "state": {
           "branch": null,
-          "revision": "c58dc8e1916f05fb44c5696296928dbcbf770e0d",
-          "version": "1.0.0-beta.38"
+          "revision": "014ffbed0ef0c82c5b06aef4c54f9f21af99ac2a",
+          "version": "1.0.0-beta.39.2"
         }
       },
       {
@@ -98,24 +98,6 @@
           "branch": null,
           "revision": "9855842ec90230406dd865b465b5e74c1ca67581",
           "version": "1.0.0-beta.12"
-        }
-      },
-      {
-        "package": "jwt",
-        "repositoryURL": "https://github.com/vapor/jwt",
-        "state": {
-          "branch": null,
-          "revision": "46eddb526fa70fd9d765a3bdffac73b2be487cfc",
-          "version": "4.0.0"
-        }
-      },
-      {
-        "package": "jwt-kit",
-        "repositoryURL": "https://github.com/vapor/jwt-kit.git",
-        "state": {
-          "branch": null,
-          "revision": "6055fe8439769aa3646a3c797d573ce7305849c8",
-          "version": "4.2.0"
         }
       },
       {

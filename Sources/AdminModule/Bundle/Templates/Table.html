@@ -1,27 +1,25 @@
-#var(columns = "1fr")
-#var(actions = 0)
+#var(actions = [])
 #if((table.edit ?? true) && UserHasPermission(table.key + ".update")):
-    #(columns += " 80px")
-    #(actions += 1)
+    #(actions.append(["link": "/update/", "label": "Edit", "icon": "edit-2", "width": "80px"]))
 #endif
+
 #if((table.delete ?? true) && UserHasPermission(table.key + ".delete")):
-    #(columns += " 80px")
-    #(actions += 1)
+    #(actions.append(["link": "/delete/", "label": "Delete", "icon": "trash", "width": "80px"]))
 #endif
 
 #define(css):
 tr {
-    grid-template-columns: repeat(#max(1, actions), 1fr);
+    grid-template-columns: repeat(#max(1, actions.count()), 1fr);
 }
 @media (min-width: 600px) {
     tr {
-        grid-template-columns: #(columns);
+        grid-template-columns: 1fr #for(a in actions): #(a.width)#endfor;
     }
 }
 #enddefine
 
 #define(th):
-    <th class="margin-horizontal-xs compact-center#if(actions > 0): compact-col#(actions)#endif">
+    <th class="margin-horizontal-xs compact-center #if(!actions.isEmpty()): compact-col#(actions.count())#endif">
         #let(link = [
              "key": table.field.key,
              "default": true,
@@ -30,38 +28,27 @@ tr {
         #inline("Admin/SortLink")
     </th>
 
-    #if((table.edit ?? true) && UserHasPermission(table.key + ".update")):
-    <th class="text-align-center compact-hidden margin-right-s">Edit</th>
-    #endif
-    
-    #if((table.delete ?? true) && UserHasPermission(table.key + ".delete")):
-    <th class="text-align-center compact-hidden margin-right-s">Delete</th>
-    #endif
-
+    #for(action in actions):
+        <th class="text-align-center compact-hidden margin-right-s">#(action.label)</th>
+    #endfor
 #enddefine
 
 #define(tr):
     #for(item in list.items):
     <tr class="margin-bottom-s shadow-s padding-s">
-        <td class="margin-horizontal-xs compact-margin compact-center #if(actions > 0): compact-separator compact-col#(actions)#endif">
+        <td class="margin-horizontal-xs compact-margin compact-center #if(!actions.isEmpty()): compact-separator compact-col#(actions.count())#endif">
             #if((table.view ?? true) && UserHasPermission(table.key + ".get")):
             <a href="#($req.url.path)#(item.id)/">#(item[table.field.key])</a>
             #else:
             #(item[table.field.key])
             #endif
         </td>
-        
-        #if((table.edit ?? true) && UserHasPermission(table.key + ".update")):
-        <td class="text-align-center compact-margin">
-            <a href="#($req.url.path)#(item.id)/update">#svg("edit-2")</a>
-        </td>
-        #endif
 
-        #if((table.delete ?? true) && UserHasPermission(table.key + ".delete")):
+        #for(action in actions):
         <td class="text-align-center compact-margin">
-            <a href="#($req.url.path)#(item.id)/delete/">#svg("trash")</a>
+            <a href="#($req.url.path)#(item.id)#(action.link)">#svg(action.icon)</a>
         </td>
-        #endif
+        #endfor
     </tr>
     #endfor
 #enddefine

@@ -1,3 +1,7 @@
+#define(title):
+#(detail.title ?? "") details
+#enddefine
+
 #define(breadcrumb):
     #if(UserHasPermission(detail.key + ".list")):
     <li><a href="#(detail.list.url)">#(detail.list.title)</a></li>
