@@ -12,10 +12,10 @@ document.onkeydown=function(evt){
 #enddefine
 
 #define(body):
-<div class="margin-vertical-xl">
+<div class="margin-vertical-xl text-align-center">
     <span class="h2">🗑</span>
     <h1 class="margin-top-zero">#(delete.title ?? "Confirm deletion")</h1>
-    <p class="margin-top-zero margin-bottom">You are about to permanently delete the `#(delete.context ?? "current")` #(delete.type ?? "object").</p>
+    <p class="margin-top-zero margin-bottom">You are about to permanently delete the<br>`#(delete.context ?? "current")` #(delete.type ?? "object").</p>
 
     <form id="delete-form" action="#($req.url.path)" method="POST">
         <input type="hidden" name="formId" value="#(delete.id ?? "")">
@@ -25,8 +25,8 @@ document.onkeydown=function(evt){
         #endif
         <input type="hidden" name="redirect" value="#(delete.list.url ?? $req.url.path.trimLast(2))">
 
-        <input type="submit" value="#(delete.confirm ?? "Delete")" class="button background-red margin-right-s" style="display: inline;">
-        <a href="#(Request(query: "cancel") ?? delete.list.url)" class="button background-gray display-inline-block" >#(delete.cancel ?? "Cancel")</a>
+        <input type="submit" value="#(delete.confirm ?? "Delete")" class="button background-red margin-right-s shadow" style="display: inline;">
+        <a href="#(Request(query: "cancel") ?? delete.list.url)" class="button background-gray display-inline-block shadow" >#(delete.cancel ?? "Cancel")</a>
     </form>
 </div>
 
