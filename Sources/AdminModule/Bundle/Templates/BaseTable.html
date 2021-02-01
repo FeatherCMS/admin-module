@@ -7,9 +7,13 @@
 <header class="margin-bottom">
     <h1 class="margin-top-zero">#(table.title ?? "List")</h1>
     <p class="margin-top-zero">
+        #var(finalActions = [])
         #if((table.create ?? true) && UserHasPermission(table.key + ".create")):
-        <a href="#($req.url.path)create/">Create new</a>
+            #(finalActions.append(["link": $req.url.path + "create/", "name": "Create new"]))
         #endif
+        #for(action in finalActions + table.actions ?? []):
+            #if(!isFirst): &middot; #endif<a href="#(action.link)#if(action.targetBlank ?? false): target="_blank"#endif">#(action.name)</a>
+        #endfor
     </p>
 </header>
 

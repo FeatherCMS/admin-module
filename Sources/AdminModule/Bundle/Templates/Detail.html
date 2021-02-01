@@ -9,9 +9,13 @@
     <header class="margin-bottom">
         <h1 class="margin-top-zero">#(detail.title ?? "") details</h1>
         <p class="margin-top-zero">
+            #var(finalActions = [])
             #if((detail.edit ?? true) && UserHasPermission(detail.key + ".update")):
-            <a href="#($req.url.path)update/">Edit</a>
+                #(finalActions.append(["link": $req.url.path + "update/", "name": "Edit"]))
             #endif
+            #for(action in finalActions + detail.actions ?? []):
+                #if(!isFirst): &middot; #endif<a href="#(action.link)#if(action.targetBlank ?? false): target="_blank"#endif">#(action.name)</a>
+            #endfor
         </p>
     </header>
     
