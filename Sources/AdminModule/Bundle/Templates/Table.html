@@ -14,20 +14,34 @@ tr {
 }
 @media (min-width: 600px) {
     tr {
-        grid-template-columns: 1fr #for(a in actions): #(a.width)#endfor;
+        grid-template-columns: 1fr #for(f in table.fields ?? []): 1fr#endfor #for(a in actions): #(a.width)#endfor;
     }
 }
 #enddefine
 
 #define(th):
+    #var(link = nil)
     <th class="margin-horizontal-xs compact-center #if(!actions.isEmpty()): compact-col#(actions.count())#endif">
-        #let(link = [
+        #(link = [
              "key": table.field.key,
              "default": true,
              "sort": (table.field.sort ?? "asc")
         ])
         #inline("Admin/SortLink")
     </th>
+
+
+    #for(field in table.fields ?? []):
+    <th class="margin-horizontal-xs compact-center #if(!actions.isEmpty()): compact-col#(actions.count())#endif">
+        #(link = [
+             "key": field.key,
+             "default": false,
+             "sort": "asc",
+             "label": field.label ?? field.key.capitalized()
+        ])
+        #inline("Admin/SortLink")
+    </th>
+    #endfor
 
     #for(action in actions):
         <th class="text-align-center compact-hidden margin-right-s">#(action.label)</th>
@@ -36,16 +50,27 @@ tr {
 
 #define(tr):
     #for(item in list.items):
+        #let(canView = (table.view ?? true) && UserHasPermission(table.key + ".get"))
         #let(label = !item[table.field.key].isEmpty() ? item[table.field.key] : (table.field.placeholder ?? ""))
 
     <tr class="margin-bottom-s shadow-s padding-s">
         <td class="margin-horizontal-xs compact-margin compact-center #if(!actions.isEmpty()): compact-separator compact-col#(actions.count())#endif">
-            #if((table.view ?? true) && UserHasPermission(table.key + ".get")):
+            #if(canView):
                 <a href="#($req.url.path)#(item.id)/">#(label)</a>
             #else:
                 #(label)
             #endif
         </td>
+
+        #for(field in table.fields ?? []):
+        <td class="margin-horizontal-xs compact-margin compact-center #if(!actions.isEmpty()): compact-separator compact-col#(actions.count())#endif">
+            #if(canView):
+                <a href="#($req.url.path)#(item.id)/">#(item[field.key])</a>
+            #else:
+                #(item[field.key])
+            #endif
+        </td>
+        #endfor
 
         #for(action in actions):
         <td class="text-align-center compact-margin">
