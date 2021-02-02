@@ -1,5 +1,5 @@
 <section>
-    <label for="#(field.id)" class="display-block">#(field.label ?? field.id.capitalized())#if(field.required ?? false):<span class="color-red">*</span>#endif</label>
+    <label for="#(field.id)" class="display-block">#(field.label ?? field.id.capitalized())#if(field.more ?? false): <span class="color-gray">(#(field.more))</span>#endif#if(field.required ?? false):<span class="color-red">*</span>#endif</label>
     
     <input type="checkbox" name="#(field.id)" value="true" id="#(field.id)" #if(field.data.value == "true"):checked#endif>
     <label for="#(field.id)">#(field.placeholder ?? "Yes")</label><br>
