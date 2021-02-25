@@ -12,18 +12,19 @@ document.onkeydown=function(evt){
 #enddefine
 
 #define(breadcrumb):
-    <li><a href="#(delete.list.url)">#(delete.list.title)</a></li>
+    <a href="#(delete.list.url)">#(delete.list.title)</a>
 #enddefine
 
 #define(body):
-<div class="margin-vertical-xl text-align-center">
+<div class="lead-xxl">
     <span class="h2">🗑</span>
-    <h1 class="margin-top-zero">#(delete.title ?? "Confirm deletion")</h1>
-    <p class="margin-top-zero margin-bottom">You are about to permanently delete the<br>`#(delete.context ?? "current")` #(delete.type ?? "object").</p>
+    <h1>#(delete.title ?? "Confirm deletion")</h1>
+    <p>You are about to permanently delete the<br>`#(delete.context ?? "current")` #(delete.type ?? "object").</p>
 
-    <form id="delete-form" action="#($req.url.path)" method="POST">
+    <form id="delete-form" action="#($req.url.path)" method="post">
         <input type="hidden" name="formId" value="#(delete.id ?? "")">
         <input type="hidden" name="formToken" value="#(delete.token ?? "")">
+
         #if(delete.key != nil):
         <input type="hidden" name="key" value="#(delete.key ?? "")">
         #endif

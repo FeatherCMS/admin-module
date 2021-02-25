@@ -4,15 +4,15 @@
 
 #define(breadcrumb):
     #if(UserHasPermission(detail.key + ".list")):
-    <li><a href="#(detail.list.url)">#(detail.list.title)</a></li>
+    <a href="#(detail.list.url)">#(detail.list.title)</a>
     #endif
 #enddefine
     
 #define(body):
 <div class="container">
-    <header class="margin-bottom">
-        <h1 class="margin-top-zero">#(detail.title ?? "") details</h1>
-        <p class="margin-top-zero">
+    <header class="lead">
+        <h1>#(detail.title ?? "") details</h1>
+        <p>
             #var(navItems = [])
             #if((detail.edit ?? true) && UserHasPermission(detail.key + ".update")):
                 #(navItems.append(["link": $req.url.path + "update/", "label": "Edit"]))
@@ -35,9 +35,9 @@
             #evaluate(details ?? "")
         #endif
 
-        <div class="margin-top-xl">
+        <div>
             #if((detail.delete ?? true) && UserHasPermission(detail.key + ".delete")):
-            <a href="#($req.url.path)delete/?cancel=#($req.url.path)" class="color-red">Delete</a>
+            <a href="#($req.url.path)delete/?cancel=#($req.url.path)" class="red">Delete</a>
             #endif
         </div>
     </section>

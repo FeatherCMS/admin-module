@@ -22,6 +22,6 @@ struct AdminRouter: ViperRouter {
         /// setup home view (dashboard)
         protectedAdmin.get(use: adminController.homeView)
         /// hook up other admin views that are protected by the authentication middleware
-        let _: [Void] = app.invokeAll("admin", args: ["routes": protectedAdmin])
+        let _: [Void] = app.invokeAll("admin-routes", args: ["routes": protectedAdmin])
     }
 }

@@ -8,10 +8,10 @@
 import FeatherCore
 
 import SystemModule
+import CommonModule
 import UserModule
 import ApiModule
 import FrontendModule
-import BlogModule
 import AdminModule
 
 /// setup metadata delegate object
@@ -25,23 +25,20 @@ defer { feather.stop() }
 feather.useSQLiteDatabase()
 feather.useLocalFileStorage()
 feather.usePublicFileMiddleware()
-feather.setMaxUploadSize("10mb")
 
 try feather.configure([
-    /// core
     SystemBuilder(),
+    CommonBuilder(),
     UserBuilder(),
     ApiBuilder(),
-    AdminBuilder(),
     FrontendBuilder(),
-    /// other
-    BlogBuilder(),
+
+    AdminBuilder(),
 ])
 
-
-/// reset resources folder if we're in debug mode
 if feather.app.isDebug {
-    try feather.reset(resourcesOnly: false)
+    try feather.resetPublicFiles()
+    try feather.copyTemplatesIfNeeded()
 }
 
 try feather.start()
