@@ -20,7 +20,7 @@ struct AdminErrorMiddleware: Middleware {
     }
 
     func renderError(_ req: Request, error: AbortError) -> EventLoopFuture<View> {
-        req.leaf.render(template: "Admin/Error", context: [
+        req.tau.render(template: "Admin/Error", context: [
             "error": [
                 "code": .int(Int(error.status.code)),
                 "reason": .string(error.reason),

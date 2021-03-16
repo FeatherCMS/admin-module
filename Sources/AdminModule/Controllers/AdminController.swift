@@ -10,6 +10,6 @@ import FeatherCore
 struct AdminController {
 
     func homeView(req: Request) throws -> EventLoopFuture<View> {
-        req.leaf.render(template: "Admin/Home")
+        req.tau.render(template: "Admin/Home")
     }
 }

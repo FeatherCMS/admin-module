@@ -12,6 +12,10 @@ extension Feather {
 
     /// use the sqlite database driver
     func useSQLiteDatabase() {
-        use(database: .sqlite(.file("db.sqlite")), databaseId: .sqlite)
+        let file = Application.Paths.resources
+            .appendingPathComponent("db")
+            .appendingPathExtension("sqlite")
+
+        use(database: .sqlite(.file(file.path)), databaseId: .sqlite)
     }
 }
