@@ -2,11 +2,11 @@
 #(error.code) - #(error.reason)
 #enddefine
 #define(body):
-<section class="lead-xxl">
-    <span class="h2">⚠️</span>
+<div class="lead container center">
+    <span class="icon">⚠️</span>
     <h1>#(error.code) - #(error.reason)</h1>
     <p>Something went wrong with your request</p>
-    <a href="#($req.url.path)" class="button-1">Please try again →</a>
-</section>
+    <a href="#($req.url.path)">Please try again →</a>
+</div>
 #enddefine
 #inline("Admin/Index")

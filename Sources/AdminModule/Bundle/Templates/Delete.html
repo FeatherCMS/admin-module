@@ -16,8 +16,8 @@ document.onkeydown=function(evt){
 #enddefine
 
 #define(body):
-<div class="lead-xxl">
-    <span class="h2">🗑</span>
+<div class="lead container center">
+    <span class="icon">🗑</span>
     <h1>#(delete.title ?? "Confirm deletion")</h1>
     <p>You are about to permanently delete the<br>`#(delete.context ?? "current")` #(delete.type ?? "object").</p>
 
@@ -30,8 +30,8 @@ document.onkeydown=function(evt){
         #endif
         <input type="hidden" name="redirect" value="#(delete.list.url ?? $req.url.path.trimLast(2))">
 
-        <input type="submit" value="#(delete.confirm ?? "Delete")" class="button background-red margin-right-s shadow" style="display: inline;">
-        <a href="#(Request(query: "cancel") ?? delete.list.url)" class="button background-gray display-inline-block shadow" >#(delete.cancel ?? "Cancel")</a>
+        <input type="submit" value="#(delete.confirm ?? "Delete")" class="button destructive" style="display: inline;"> &nbsp;
+        <a href="#(Request(query: "cancel") ?? delete.list.url)" class="button cancel" >#(delete.cancel ?? "Cancel")</a>
     </form>
 </div>
 

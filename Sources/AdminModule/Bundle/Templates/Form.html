@@ -10,22 +10,26 @@
 #enddefine
 
 #define(body):
-<div class="container">
-<header class="margin-bottom">
-    <h1 class="margin-top-zero">#if(form.modelId != nil):Edit#else:Create#endif #(form.title.lowercased())</h1>
-    <p class="margin-top-zero">
+<div class="lead container">
 
-        #var(navItems = [])
-        #if((form.modelId != nil) && (form.view ?? true) && UserHasPermission(form.key + ".get")):
-            #(navItems.append(["link": $req.url.path.trimLast(), "label": "View"]))
-        #endif
-        #for(navItem in navItems + form.nav ?? []):
-            #if(!isFirst): &middot; #endif<a href="#(navItem.link)"#if(navItem.targetBlank ?? false): target="_blank"#endif>#(navItem.label)</a>
+    #var(navItems = [])
+    #if((form.modelId != nil) && (form.view ?? true) && UserHasPermission(form.key + ".get")):
+        #(navItems.append(["link": $req.url.path.trimLast(), "label": "View"]))
+    #endif
+    #let(segmentItems = navItems + form.nav ?? [])
+    
+    <div class="segment grid-#(segmentItems.count())">
+        
+        #for(navItem in segmentItems):
+            <a href="#(navItem.link)"#if(navItem.targetBlank ?? false): target="_blank"#endif>#(navItem.label)</a>
         #endfor
-    </p>
-</header>
+    </div>
+    
+    <h1>#if(form.modelId != nil):Edit#else:Create#endif #(form.title.lowercased())</h1>
+</div>
 
-<section>
+<div class="container">
+
     <form id="#(form.key)-form" method="post" action="#($req.url.path)"#if(form.multipart ?? false): enctype="multipart/form-data"#endif>
 
     #if(form.modelId != nil):
@@ -33,7 +37,7 @@
         #inline("Common/Fields/Hidden")
     #endif
 
-    #var(field = nil)    
+    #var(field = nil)
     
     #(field = ["id": "formId", "value": form.id])
     #inline("Common/Fields/Hidden")
@@ -43,25 +47,23 @@
 
     #fields()
 
+    #(field = ["label": "Save", "class": "shadow"])
+    #inline("Common/Fields/Button")
+    
     #if(notification != nil):
     <section id="notification">
         <span>#(notification)</span>
     </section>
     #endif
 
-    #(field = ["label": "Save", "class": "shadow"])
-    #inline("Common/Fields/Button")
-
     </form>
 
-    <div class="margin-top-xl">
+    <section>
         #if((form.modelId != nil) && (form.delete ?? true) && UserHasPermission(form.key + ".delete")):
-        <a href="#($req.url.path.trimLast())delete/?cancel=#($req.url.path)" class="color-red">Delete</a>
+        <a href="#($req.url.path.trimLast())delete/?cancel=#($req.url.path)" class="destructive">Delete</a>
         #endif
-    </div>
+    </section>
     
-
-</section>
 </div>
 #enddefine
 
