@@ -35,7 +35,7 @@
     #for(field in detail.fields):
         <dt>#(field.label)</dt>
         
-        #if(field.value.isEmpty()):
+        #if(field.value ?? "" == ""):
         <dd>&nbsp;</dd>
         #else:
         <dd>#(field.value)</dd>
