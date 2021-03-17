@@ -3,43 +3,33 @@ Dashboard
 #enddefine
 
 #define(css):
-.card {
-    position: relative;
-    min-height: 144px;
-    overflow: hidden;
-    padding: var(--unit);
-    border-radius: var(--unit-4);
-}
-.card h3 {
-    margin-top: 0;
-    padding-bottom: 0.5rem;
-    margin-bottom: 0.5rem;
-    border-bottom: 1px dashed var(--bg-color-2);
-}
-.card nav a {
-    display: block;
-}
-.card span {
+.card .content svg {
+    width: var(--font-size-3xl);
+    height: var(--font-size-3xl);
+    color: var(--color-1);
     position: absolute;
-    top: 1.5rem;
-    right: 1rem;
-    color: var(--link-color-2);
+    top: var(--space);
+    right: var(--space);
+}
+.card .content nav a {
+    display: block;
 }
 #enddefine
 
 #define(body):
 
-<header class="wrapper-1">
+<div class="lead">
     <h1>Dashboard</h1>
     <p>Welcome <b>#($user.email)</b>, this is your admin interface.</p>
-</header>
+</div>
 
 <section class="grid-321">
     #for(menu in InvokeAllHooks("admin-menu")):
         #if(UserHasPermission(menu.permission) ?? true):
-        <div class="card bg-1">
+        <div class="card">
+            <div class="content">
             <span>#svg(menu.icon)</span>
-            <h3>#(menu.name)</h3>
+            <h2>#(menu.name)</h2>
             <nav>
             #for(item in menu.items):
                 #if(UserHasPermission(item.permission) ?? true):
@@ -47,6 +37,7 @@ Dashboard
                 #endif
             #endfor
             </nav>
+            </div>
         </div>
         #endif
     #endfor
