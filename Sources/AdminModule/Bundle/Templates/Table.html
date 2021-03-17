@@ -16,13 +16,18 @@
 tr {
     grid-template-columns: repeat(#max(1, actions.count()), 1fr);
 }
+td.field {
+    grid-column: span #(actions.count());
+}
 @media (min-width: 600px) {
     tr {
         grid-template-columns:#for(f in table.fields ?? []): #(f.width ?? "1fr")#endfor #for(a in actions): #(a.width ?? "1fr")#endfor;
     }
+    td.field {
+        grid-column: span 1;
+    }
 }
 #enddefine
-
 
 #define(breadcrumb):
     <a href="#($req.url.path)" class="current">#(table.title ?? "List")</a>

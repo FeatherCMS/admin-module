@@ -6,6 +6,7 @@
     #if(UserHasPermission(detail.key + ".list")):
     <a href="#(detail.list.url)">#(detail.list.title)</a>
     #endif
+    <a href="#($req.url.path)" class="selected">View</a>
 #enddefine
     
 #define(body):
@@ -17,11 +18,13 @@
     #endif
     #let(segmentItems = navItems + detail.nav ?? [])
     
+    #if(!segmentItems.isEmpty()):
     <div class="segment grid-#(segmentItems.count())">
         #for(navItem in navItems + detail.nav ?? []):
             <a href="#(navItem.link)"#if(navItem.targetBlank ?? false): target="_blank"#endif>#(navItem.label)</a>
         #endfor
     </div>
+    #endif
     
     <h1>#(detail.title ?? "") details</h1>
 </div>
